@@ -1,0 +1,42 @@
+{
+  "MPX": {
+    "gridX": 107,
+    "gridY": 72
+  },
+  "TOP": {
+    "gridX": 31,
+    "gridY": 80
+  },
+  "BTV": {
+    "gridX": 95,
+    "gridY": 67
+  },
+  "BUF": {
+    "gridX": 99,
+    "gridY": 50
+  },
+  "GSP": {
+    "gridX": 80,
+    "gridY": 56
+  },
+  "LWX": {
+    "gridX": 38,
+    "gridY": 85
+  },
+  "RAH": {
+    "gridX": 65,
+    "gridY": 55
+  },
+  "FWD": {
+    "gridX": 78,
+    "gridY": 44
+  },
+  "SLC": {
+    "gridX": 95,
+    "gridY": 74
+  },
+  "PSR": {
+    "gridX": 130,
+    "gridY": 52
+  }
+}
