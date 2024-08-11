@@ -3,6 +3,8 @@ import { setCache, getCache } from './redisClient';
 import { WeatherData } from './types/WeatherData';
 import gridpoints from './gridpoints.json';
 import { GridPoints } from './types/GridPoints';
+import { config } from './config';
+import { logger } from './logger';
 
 const gridpointsTyped: GridPoints = gridpoints;
 
@@ -11,15 +13,14 @@ export const fetchWeatherData = async (
 ): Promise<WeatherData> => {
   try {
     const { gridX, gridY } = gridpointsTyped[office];
-    const forecastUrl = `https://api.weather.gov/gridpoints/${office}/${gridX},${gridY}/forecast`;
+    const forecastUrl = `${config.weatherApiUrl}/gridpoints/${office}/${gridX},${gridY}/forecast`;
     const response = await axios.get(forecastUrl);
     return response.data as WeatherData;
   } catch (error: any) {
-    console.error(
-      'Error fetching weather data:',
-      error.response ? error.response.data : error.message,
-    );
-    throw error;
+    const errorMessage =
+      error.response?.data?.detail || error.message || 'Unknown error';
+    logger.error('Error fetching weather data:', { error: errorMessage });
+    throw new Error(errorMessage);
   }
 };
 
@@ -36,7 +37,7 @@ export const getWeatherData = async (office: string): Promise<WeatherData> => {
       await setCache(cacheKey, JSON.stringify(fetchedData), 3600);
       return fetchedData;
     } catch (error) {
-      console.error('Error fetching and caching weather data', error);
+      logger.error('Error fetching and caching weather data', error);
       throw error;
     }
   }

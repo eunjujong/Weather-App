@@ -16,17 +16,21 @@ exports.getWeatherData = exports.fetchWeatherData = void 0;
 const axios_1 = __importDefault(require("axios"));
 const redisClient_1 = require("./redisClient");
 const gridpoints_json_1 = __importDefault(require("./gridpoints.json"));
+const config_1 = require("./config");
+const logger_1 = require("./logger");
 const gridpointsTyped = gridpoints_json_1.default;
 const fetchWeatherData = (office) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
         const { gridX, gridY } = gridpointsTyped[office];
-        const forecastUrl = `https://api.weather.gov/gridpoints/${office}/${gridX},${gridY}/forecast`;
+        const forecastUrl = `${config_1.config.weatherApiUrl}/gridpoints/${office}/${gridX},${gridY}/forecast`;
         const response = yield axios_1.default.get(forecastUrl);
         return response.data;
     }
     catch (error) {
-        console.error('Error fetching weather data:', error.response ? error.response.data : error.message);
-        throw error;
+        const errorMessage = ((_b = (_a = error.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.detail) || error.message || 'Unknown error';
+        logger_1.logger.error('Error fetching weather data:', { error: errorMessage });
+        throw new Error(errorMessage);
     }
 });
 exports.fetchWeatherData = fetchWeatherData;
@@ -44,7 +48,7 @@ const getWeatherData = (office) => __awaiter(void 0, void 0, void 0, function* (
             return fetchedData;
         }
         catch (error) {
-            console.error('Error fetching and caching weather data', error);
+            logger_1.logger.error('Error fetching and caching weather data', error);
             throw error;
         }
     }

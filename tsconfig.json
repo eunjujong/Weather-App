@@ -7,7 +7,9 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "dist",
+    "rootDir": ".",
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "paths": {
@@ -17,6 +19,6 @@
       ]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json"],
+  "include": ["src/**/*.ts", "src/**/*.json", "__tests__/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

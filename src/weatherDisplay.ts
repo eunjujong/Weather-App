@@ -1,6 +1,7 @@
 import { getWeatherData } from './weatherService';
 import gridpoints from './gridpoints.json';
 import { GridPoints } from './types/GridPoints';
+import { logger } from './logger';
 
 const gridpointsTyped: GridPoints = gridpoints;
 
@@ -8,11 +9,11 @@ export const displayWeatherData = async (office: string) => {
   try {
     const weather = await getWeatherData(office);
     const { gridX, gridY } = gridpointsTyped[office];
-    console.log(
+    logger.info(
       `Weather Data for Office: ${office}, GridX: ${gridX}, GridY: ${gridY}`,
     );
     weather.properties.periods.forEach((period) => {
-      console.log({
+      logger.info({
         name: period.name,
         startTime: period.startTime,
         endTime: period.endTime,
@@ -26,6 +27,8 @@ export const displayWeatherData = async (office: string) => {
       });
     });
   } catch (error) {
-    console.error('Failed to display weather data:', error);
+    logger.error('Failed to display weather data:', {
+      error: error.message || error,
+    });
   }
 };

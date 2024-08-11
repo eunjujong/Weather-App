@@ -1,0 +1,27 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+node_modules/
+
+# Debugging directories
+.DS_Store
+
+# Production build
+dist/
+
+# Docker
+.docker/
+
+# MacOS-specific files
+.DS_Store
+
+# Lock files
+package-lock.json

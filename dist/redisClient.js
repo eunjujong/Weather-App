@@ -14,7 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCache = exports.setCache = void 0;
 const ioredis_1 = __importDefault(require("ioredis"));
-const redis = new ioredis_1.default();
+const config_1 = require("./config");
+const redis = new ioredis_1.default({
+    host: config_1.config.redisHost,
+    port: config_1.config.redisPort,
+});
 const setCache = (key, value, expireInSeconds) => __awaiter(void 0, void 0, void 0, function* () {
     yield redis.set(key, value, 'EX', expireInSeconds);
 });

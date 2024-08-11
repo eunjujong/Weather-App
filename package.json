@@ -7,9 +7,9 @@
     "start": "npx ts-node src/index.ts",
     "test": "jest",
     "build": "tsc",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
-    "format": "prettier --write 'src/**/*.{ts,tsx,json,md}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}' --fix",
+    "format": "prettier --write 'src/**/*.{ts,tsx,json,md}' '__tests__/**/*.{ts,tsx}'"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +34,8 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "axios-mock-adapter": "^1.22.0"
+    "axios-mock-adapter": "^1.22.0",
+    "dotenv": "^16.4.5",
+    "winston": "^3.14.1"
   }
 }
